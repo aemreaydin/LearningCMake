@@ -2,13 +2,23 @@ set(srcFiles
         src/Addition.cpp
         src/Division.cpp)
 
-add_library(MathLib ${srcFiles})
-target_include_directories(MathLib PUBLIC
+set(LIB_NAME MathLib)
+
+add_library(${LIB_NAME} ${srcFiles})
+target_include_directories(${LIB_NAME} PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-        $<INSTALL_INTERFACE:include>)
+        $<INSTALL_INTERFACE:${LIB_NAME}/include>)
 
-file(GLOB_RECURSE includes include/*)
 
-install(DIRECTORY include/MathLib DESTINATION ${CMAKE_INSTALL_PREFIX}/include)
-install(TARGETS MathLib EXPORT MathLib DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/MathLib)
-install(EXPORT MathLib FILE mathlib-config.cmake DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/MathLib)
+set(LIB_ROOT ${CMAKE_INSTALL_PREFIX}/${LIB_NAME})
+set(LIB_INSTALL_DIR ${LIB_ROOT}/lib)
+set(INC_INSTALL_DIR ${LIB_ROOT}/include)
+
+install(DIRECTORY include/${LIB_NAME}
+DESTINATION ${INC_INSTALL_DIR})
+install(TARGETS ${LIB_NAME}
+EXPORT ${LIB_NAME}Export
+DESTINATION ${LIB_INSTALL_DIR})
+install(EXPORT ${LIB_NAME}Export
+FILE ${LIB_NAME}Config.cmake
+DESTINATION ${LIB_ROOT}/cmake)

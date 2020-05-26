@@ -8,7 +8,16 @@ set(srcFiles
 
 add_executable(LearningCMake ${srcFiles})
 
-include(cmake/FindMathLib.cmake)
-include(cmake/FindPrintLib.cmake)
+set(PrintLib_DIR $ENV{BaseLibs}/PrintLib/cmake)
+find_package(PrintLib REQUIRED)
+if(NOT PrintLib_FOUND)
+    message(FATAL_ERROR "PrintLib not found.")
+endif()
 
-target_link_libraries(${PROJECT_NAME} MathLib PrintLib)
+set(MathLib_DIR $ENV{BaseLibs}/MathLib/cmake)
+find_package(MathLib REQUIRED)
+if(NOT MathLib_FOUND)
+    message(FATAL_ERROR "MathLib not found.")
+endif()
+
+target_link_libraries(${PROJECT_NAME} PrintLib MathLib)
