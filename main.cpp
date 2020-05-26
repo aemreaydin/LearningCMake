@@ -1,6 +1,6 @@
 #include <MathLib/Addition.h>
 #include <MathLib/Division.h>
-#include "PrintLib/PrintResult.h"
+#include <PrintLib/PrintResult.h>
 
 int main() {
     const auto addOutput = addition(2.f, 3.f);

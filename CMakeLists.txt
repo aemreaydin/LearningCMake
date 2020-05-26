@@ -6,8 +6,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(srcFiles
         main.cpp)
 
-add_subdirectory(MathLib)
-add_subdirectory(PrintLib)
-
 add_executable(LearningCMake ${srcFiles})
+
+include(cmake/FindMathLib.cmake)
+include(cmake/FindPrintLib.cmake)
+
 target_link_libraries(${PROJECT_NAME} MathLib PrintLib)

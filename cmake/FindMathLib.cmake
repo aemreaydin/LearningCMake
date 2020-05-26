@@ -1,0 +1,6 @@
+find_package(MathLib REQUIRED)
+if(MathLib_FOUND)
+    message(STATUS "MathLib found.")
+else()
+    message(FATAL_ERROR "MathLib not found.")
+endif()
